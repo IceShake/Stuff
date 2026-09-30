@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: personal-freetheai-relay
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT --no-access-log
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.8
+      - key: UPSTREAM_BASE_URL
+        value: https://api.freetheai.org
+      - key: MAX_BODY_BYTES
+        value: 26214400
